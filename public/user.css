@@ -1,0 +1,43 @@
+:root {
+  --r-heading-text-transform: none;
+}
+
+.top-page h2 {
+  color: cyan;
+  margin-bottom: 4em !important;
+}
+
+.top-page h3 {
+  color: white;
+}
+
+.normal {
+  width: 100%;
+  height: 100%;
+  text-align: left;
+}
+
+p:has(> .r-stretch) {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.r-stretch {
+  max-width: 80% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+.reveal {
+  background-color: #fff;
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(100, 180, 255, .12) 0 50%, transparent 4px),
+    radial-gradient(circle at 85% 15%, rgba(255, 150, 180, .10) 0 30%, transparent 5px),
+    radial-gradient(circle at 75% 85%, rgba(120, 210, 170, .10) 0 40%, transparent 4px),
+    radial-gradient(circle at 20% 80%, rgba(255, 200, 100, .10) 0 70%, transparent 5px);
+}

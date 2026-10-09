@@ -21,7 +21,7 @@ export default defineConfig({
 		emptyOutDir: true,
 		lib: {
 			formats: ['es', 'umd'],
-			entry: resolve(__dirname, 'js/index.ts'),
+			entry: resolve(import.meta.dirname, 'js/index.ts'),
 			name: 'Reveal',
 			fileName: (format, entryName) => {
 				return appendExtension(format, 'reveal');
@@ -54,6 +54,15 @@ export default defineConfig({
 				};
 			},
 		}),
+		{
+			name: 'markdown-watch',
+			handleHotUpdate({ file, server }) {
+				if (file.endsWith('contents.md')) {
+					server.ws.send({ type: 'full-reload' });
+				}
+				return [];
+			},
+		},
 	],
 	css: {
 		preprocessorOptions: {

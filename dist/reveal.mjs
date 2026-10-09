@@ -595,7 +595,7 @@ var ee = class {
 			backgroundTransition: e.getAttribute("data-background-transition"),
 			backgroundOpacity: e.getAttribute("data-background-opacity")
 		}, i = e.hasAttribute("data-preload");
-		e.classList.remove("has-dark-background"), e.classList.remove("has-light-background"), t.removeAttribute("data-loaded"), t.removeAttribute("data-background-hash"), t.removeAttribute("data-background-size"), t.removeAttribute("data-background-transition"), t.style.backgroundColor = "", n.style.backgroundSize = "", n.style.backgroundRepeat = "", n.style.backgroundPosition = "", n.style.backgroundImage = "", n.style.opacity = "", n.innerHTML = "", r.background && (/^(http|file|\/\/)/gi.test(r.background) || /\.(svg|png|jpg|jpeg|gif|bmp|webp)([?#\s]|$)/gi.test(r.background) ? e.setAttribute("data-background-image", r.background) : t.style.background = r.background), (r.background || r.backgroundColor || r.backgroundGradient || r.backgroundImage || r.backgroundVideo || r.backgroundIframe) && t.setAttribute("data-background-hash", r.background + r.backgroundSize + r.backgroundImage + r.backgroundVideo + r.backgroundIframe + r.backgroundColor + r.backgroundGradient + r.backgroundRepeat + r.backgroundPosition + r.backgroundTransition + r.backgroundOpacity), r.backgroundSize && t.setAttribute("data-background-size", r.backgroundSize), r.backgroundColor && (t.style.backgroundColor = r.backgroundColor), r.backgroundGradient && (t.style.backgroundImage = r.backgroundGradient), r.backgroundTransition && t.setAttribute("data-background-transition", r.backgroundTransition), i && t.setAttribute("data-preload", ""), r.backgroundSize && (n.style.backgroundSize = r.backgroundSize), r.backgroundRepeat && (n.style.backgroundRepeat = r.backgroundRepeat), r.backgroundPosition && (n.style.backgroundPosition = r.backgroundPosition), r.backgroundOpacity && (n.style.opacity = r.backgroundOpacity);
+		e.classList.remove("has-dark-background"), e.classList.remove("has-light-background"), t.removeAttribute("data-loaded"), t.removeAttribute("data-background-hash"), t.removeAttribute("data-background-size"), t.removeAttribute("data-background-transition"), t.style.backgroundColor = "", t.style.backgroundImage = "", n.style.backgroundSize = "", n.style.backgroundRepeat = "", n.style.backgroundPosition = "", n.style.backgroundImage = "", n.style.opacity = "", n.innerHTML = "", r.background && (/^(http|file|\/\/)/gi.test(r.background) || /\.(svg|png|jpg|jpeg|gif|bmp|webp)([?#\s]|$)/gi.test(r.background) ? e.setAttribute("data-background-image", r.background) : t.style.background = r.background), (r.background || r.backgroundColor || r.backgroundGradient || r.backgroundImage || r.backgroundVideo || r.backgroundIframe) && t.setAttribute("data-background-hash", r.background + r.backgroundSize + r.backgroundImage + r.backgroundVideo + r.backgroundIframe + r.backgroundColor + r.backgroundGradient + r.backgroundRepeat + r.backgroundPosition + r.backgroundTransition + r.backgroundOpacity), r.backgroundSize && t.setAttribute("data-background-size", r.backgroundSize), r.backgroundColor && (t.style.backgroundColor = r.backgroundColor), r.backgroundGradient && (t.style.backgroundImage = r.backgroundGradient), r.backgroundTransition && t.setAttribute("data-background-transition", r.backgroundTransition), i && t.setAttribute("data-preload", ""), r.backgroundSize && (n.style.backgroundSize = r.backgroundSize), r.backgroundRepeat && (n.style.backgroundRepeat = r.backgroundRepeat), r.backgroundPosition && (n.style.backgroundPosition = r.backgroundPosition), r.backgroundOpacity && (n.style.opacity = r.backgroundOpacity);
 		let a = this.getContrastClass(e);
 		typeof a == "string" && e.classList.add(a);
 	}
@@ -2469,7 +2469,7 @@ function z(a, s) {
 		We(), Ue(), Y(), O = f.autoSlide, $(), F.create(), V.writeURL(), f.sortFragmentsOnSync === !0 && R.sortAll(), h !== void 0 && (h = bt(w, h), _ = bt(te, _)), H.update(), U.update(), Ct(), q.update(), q.updateVisibility(), G.update(), F.update(!0), M.update(), j.formatEmbeddedContent(), f.autoPlayMedia === !1 ? j.stopEmbeddedContent(y, { unloadIframes: !1 }) : j.startEmbeddedContent(y), z.isActive() && z.layout(), J({ type: "sync" });
 	}
 	function _t(e = y) {
-		F.sync(e), R.sync(e), j.load(e), F.update(), q.update(), J({
+		F.sync(e), R.sync(e), j.load(e), F.update(), q.update(), e === y && (j.startEmbeddedContent(e), e.slideBackgroundElement && j.startEmbeddedContent(e.slideBackgroundElement)), J({
 			type: "slidesync",
 			data: { slide: e }
 		});
@@ -2541,7 +2541,7 @@ function z(a, s) {
 		}
 		let a = z.isActive() || I.isActive() || L.isActive();
 		t(D.wrapper, C).forEach((e) => {
-			e.toggleAttribute("inert", !a && e !== y && !e.contains(y));
+			!a && e !== y && !e.contains(y) ? e.setAttribute("inert", "") : e.removeAttribute("inert");
 		});
 	}
 	function Z({ includeFragments: e = !1 } = {}) {

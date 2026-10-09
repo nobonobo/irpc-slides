@@ -2,41 +2,70 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-		/>
 
-		<title>reveal.js</title>
+		<title>TinyGoとGoをつなぐRPC</title>
+
+		<meta
+			name="description"
+			content="TinyGoとGoをつなぐRPC"
+		/>
+		<meta name="author" content="Hakim El Hattab" />
+
+		<meta name="mobile-web-app-capable" content="yes" />
+		<meta name="mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 		<link rel="stylesheet" href="dist/reset.css" />
 		<link rel="stylesheet" href="dist/reveal.css" />
-		<link rel="stylesheet" href="dist/theme/black.css" />
+		<link rel="stylesheet" href="dist/theme/white.css" id="theme" />
 
-		<!-- Theme used for syntax highlighted code -->
+		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="dist/plugin/highlight/monokai.css" />
+		<link rel="stylesheet" href="dist/user.css" />
 	</head>
+
 	<body>
 		<div class="reveal">
+			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section data-markdown="dist/contents.md"
+					data-separator="^\n---\n$"
+					data-separator-vertical="^\n_\n"
+					data-separator-notes="^Note:"
+					data-charset="utf-8">
+					<!--
+        Note that Windows uses `\r\n` instead of `\n` as its linefeed character.
+        For a regex that supports all operating systems, use `\r?\n` instead of `\n`.
+          -->
+				</section>
 			</div>
 		</div>
 
 		<script src="dist/reveal.js"></script>
+		<script src="dist/plugin/zoom.js"></script>
 		<script src="dist/plugin/notes.js"></script>
+		<script src="dist/plugin/search.js"></script>
 		<script src="dist/plugin/markdown.js"></script>
 		<script src="dist/plugin/highlight.js"></script>
 		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
-			Reveal.initialize({
-				hash: true,
+			// Also available as an ES module, see: https://revealjs.com/initialization/
+			// import Reveal from 'reveal.js';
+			// import RevealZoom from 'reveal.js/plugin/zoom';
+			// import RevealNotes from 'reveal.js/plugin/notes';
+			// import RevealSearch from 'reveal.js/plugin/search';
+			// import RevealMarkdown from 'reveal.js/plugin/markdown';
+			// import RevealHighlight from 'reveal.js/plugin/highlight';
 
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+				transition: 'convex',
+				pdfSeparateFragments: false,
 				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+				plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight],
 			});
 		</script>
 	</body>
