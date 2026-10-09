@@ -8,6 +8,12 @@ Note:
 
 ---
 
+## このプレゼン自体がデモ
+
+![](./rtcmsg.png)
+
+---
+
 ## 「irpc」の紹介
 
 ### https://github.com/marben/irpc
