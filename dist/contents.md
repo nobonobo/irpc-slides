@@ -210,7 +210,7 @@ go run ./cmd/chat/client
 
 ## Go-TinyGo / irpc
 
-![](/mermaid-diagram.png)<!-- .element: class="r-stretch" -->
+![](./mermaid-diagram.png)<!-- .element: class="r-stretch" -->
 
 ---
 
