@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iRPC NicoNico Overlay</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@800;900&family=Outfit:wght@700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      pointer-events: none !important;
+      background: transparent !important;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: transparent !important;
+      background-color: transparent !important;
+      pointer-events: none !important;
+      font-family: 'M PLUS 1p', 'Outfit', sans-serif;
+    }
+
+    #overlay-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none !important;
+      z-index: 9999;
+      background: transparent !important;
+    }
+
+    .comment {
+      position: absolute;
+      white-space: nowrap;
+      font-size: 2.25rem;
+      font-weight: 900;
+      color: #ffffff;
+      pointer-events: none !important;
+      background: transparent !important;
+      text-shadow: 
+        -2px -2px 0 #000,  
+         2px -2px 0 #000,
+        -2px  2px 0 #000,
+         2px  2px 0 #000,
+         0px  4px 10px rgba(0, 0, 0, 0.9);
+      letter-spacing: 0.05em;
+      will-change: transform;
+      animation: flowRightToLeft 6s linear forwards;
+    }
+
+    @keyframes flowRightToLeft {
+      0% {
+        transform: translateX(100vw);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="overlay-container"></div>
+
+  <script src="wasm_exec.js"></script>
+  <script>
+    const overlayContainer = document.getElementById('overlay-container');
+    const TOTAL_LANES = 10;
+    let lastLaneIndex = -1;
+
+    // Load Go WASM
+    const go = new Go();
+    WebAssembly.instantiateStreaming(fetch("main.wasm"), go.importObject)
+      .then((result) => {
+        go.run(result.instance);
+
+        // Start Host
+        if (typeof window.RunHost === 'function') {
+          const hostId = "d7f31e58-894b-41f3-83dc-94c01b8aec21";
+          window.RunHost(hostId);
+        }
+      })
+      .catch((err) => {
+        console.error("WASM 読み込み失敗:", err);
+      });
+
+    // Callback invoked when host receives message via iRPC / WebRTC DataChannel
+    window.onMessageReceived = function(name, text) {
+      addComment(name, text);
+    };
+
+    function addComment(name, text) {
+      const commentEl = document.createElement('div');
+      commentEl.className = 'comment';
+      
+      // Format: 名前:メッセージ
+      const displayText = `${name}:${text}`;
+      commentEl.textContent = displayText;
+
+      // Select lane to minimize overlap
+      lastLaneIndex = (lastLaneIndex + 1) % TOTAL_LANES;
+      const topPercentage = (lastLaneIndex * 8.5) + 5;
+      commentEl.style.top = `${topPercentage}%`;
+
+      // Random speed variation
+      const duration = 5 + Math.random() * 2;
+      commentEl.style.animationDuration = `${duration}s`;
+
+      // Remove element when animation ends
+      commentEl.addEventListener('animationend', () => {
+        commentEl.remove();
+      });
+
+      overlayContainer.appendChild(commentEl);
+    }
+  </script>
+</body>
+</html>

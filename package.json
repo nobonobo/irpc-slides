@@ -67,6 +67,7 @@
 		}
 	},
 	"scripts": {
+		"prebuild": "node scripts/build-wasm.js",
 		"dev": "npm run start",
 		"start": "vite",
 		"prepack": "npm run build",
